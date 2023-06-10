@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BucketList.TodoListView"
+             xmlns:local="clr-namespace:BucketList"
+             Title="{Binding Title}"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ChangeCompleteActionTextConverter x:Key="ChangeCompletedActionTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <StackLayout Margin="0,30,0,0">
+        <StackLayout Margin="25,0,0,0" Orientation="Horizontal">
+            <Label Text="Мой " FontSize="40"  TextColor="#FF45AB"/>
+            <Label Text="BucketList" FontSize="40"  TextColor="Black" Margin="-8,0,0,0"/>
+            <Image Source="https://cdn-icons-png.flaticon.com/128/6968/6968879.png" Margin="10,0,0,0" />
+        </StackLayout>
+        <Label Text="Зажмите, чтобы управлять целями" Margin="0,20,0,0" HorizontalOptions="Center" FontAttributes="Italic"/>
+        <ListView ItemsSource="{Binding GroupedTodoList}"
+                IsGroupingEnabled="True"
+                GroupDisplayBinding="{Binding Key}"
+                x:Name="TodoDisplayList" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Title}" TextColor="Black"  >
+                        <TextCell.ContextActions>
+                            <MenuItem Command="{Binding Source={x:Reference TodoDisplayList}, Path=BindingContext.ChangeIsCompleted }"
+                                    CommandParameter="{Binding .}" 
+                                    Text="{Binding IsCompleted, Converter={StaticResource ChangeCompletedActionTextConverter}}"/>
+                            <MenuItem Command="{Binding Source={x:Reference TodoDisplayList}, Path=BindingContext.Delete }" 
+                                CommandParameter="{Binding .}" Text="Удалить" IsDestructive="True"/>
+                            <MenuItem Command="{Binding Source={x:Reference TodoDisplayList}, Path=BindingContext.Edit }" 
+                                CommandParameter="{Binding .}" Text="Редактировать" IsDestructive="True"/>
+                        </TextCell.ContextActions>
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Command="{Binding AddItem}" Text="Добавить цель" BackgroundColor="Orange" CornerRadius="100" Margin="10,0,10,15" />
+    </StackLayout>
+</ContentPage>

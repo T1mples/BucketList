@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BucketList.AddTodoItem">
+    <StackLayout>
+        <!--<Image Source="https://klike.net/uploads/posts/2022-11/1667888935_3-10.jpg" Scale="2.2" HeightRequest="800" Rotation="90"/>-->
+        <StackLayout Orientation="Vertical" VerticalOptions="Center" Margin="0,250,0,0">
+            <Entry Placeholder="Введите цель" Text="{Binding TodoTitle}" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+            </StackLayout>
+        </StackLayout>
+        <StackLayout>
+            <Entry Placeholder="Введите комментарий" Text="{Binding TodoComment}"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                <Button Text="Отменить" Command="{Binding CommentCancel}" BackgroundColor="#6C0E17" TextColor="White" CornerRadius="13" Margin="0,0,20,0" />
+                <Button Text="Сохранить" Command="{Binding CommentSave}" BackgroundColor="#09702C" TextColor="White" CornerRadius="13"/>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
